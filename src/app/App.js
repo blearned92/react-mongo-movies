@@ -1,13 +1,14 @@
 import './App.css';
-import api from './api/axiosConfig';
+import api from '../api/axiosConfig';
 import {useState, useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import Home from './components/home/Home';
-import Layout from './components/Layout';
-import Header from './components/header/Header';
-import Trailer from './components/tailer/Trailer';
-import Reviews from './components/reviews/Reviews';
-import NotFound from './components/notFound/NotFound';
+import Home from '../components/home/Home';
+import Layout from '../components/Layout';
+import Header from '../components/header/Header';
+import Trailer from '../components/tailer/Trailer';
+import Reviews from '../components/reviews/Reviews';
+import NotFound from '../components/notFound/NotFound';
+import API from '../api/Api';
 
 function App() {
 
@@ -15,30 +16,18 @@ function App() {
   const [movie, setMovie] = useState();
   const [reviews, setReviews] = useState();
 
-  const getMovies = async () => {
-
-    try {
-      const response = await api.get("/api/v1/movies");
-      console.log(response.data);
-      setMovies(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   const getMovieData = async (movieId) => {
-    try {
-      const response = await api.get(`/api/v1/movies/${movieId}`);
-      const singleMovie = response.data;
-      setMovie(singleMovie);
-      setReviews(singleMovie.reviews)
-    } catch (err) {
-      console.log(err)
-    }
+    const movieData = await API.fetchMovieData(movieId);
+    setMovie(movieData);
+    setReviews(movieData.reviews)
   }
 
   useEffect(()=>{
-    getMovies();
+    const fetchAllMovies = async () => {
+      const response = await API.fetchAllMovies();
+      setMovies(response);
+    }
+    fetchAllMovies();
   },[])
 
   return (

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const frontEndBase = process.env.REACT_APP_FRONTEND_URL
 const backEndBase = process.env.REACT_APP_BACKEND_URL
+console.log(backEndBase);
 
 export default axios.create({
     baseURL:backEndBase,

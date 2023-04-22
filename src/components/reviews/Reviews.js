@@ -3,6 +3,7 @@ import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
+import API from '../../api/Api';
 
 const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
 
@@ -14,18 +15,11 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
         getMovieData(movieId);
     },[])
 
-    const addReview = async (e) => {
-        e.preventDefault();
-        const rev = revText.current;
-
-        try {
-            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value, imdbId:movieId})
-            const updatedReviews = [...reviews, {body:rev.value}]
-            rev.value = "";
-            setReviews(updatedReviews)
-        } catch (err) {
-            console.log(err);
-        } 
+    const addReview = async () => {
+        const response = await API.postReview(revText.current.value, movieId);
+        const updatedReviews = [response, ...reviews];
+        setReviews(updatedReviews);
+        revText.current.value="";
     }
 
     return(
@@ -42,7 +36,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                         <>
                             <Row>
                                 <Col>
-                                    <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a Review?"/>
+                                    <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a Review?" defaultValue="I thought this movie was..."/>
                                 </Col>
                             </Row>
                             <Row>
@@ -53,9 +47,9 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                         </>
                     }
                     {
-                        reviews?.map((review)=>{
+                        reviews?.map((review, index)=>{
                             return(
-                                <>
+                                <div key={review.id.timestamp + index}>
                                     <Row>
                                         <Col>{review.body}</Col>
                                     </Row>
@@ -64,7 +58,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                                             <hr />
                                         </Col>
                                     </Row>
-                                </>
+                                </div>
                             )
                         })
                     }
