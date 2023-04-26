@@ -1,0 +1,28 @@
+.login-container {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-container h1 {
+    color: gold;
+    text-decoration: underline;
+}
+
+.login-form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-up-container {
+    margin-top: 10px;
+}
+
+.signup-nav-link {
+    color: gold;
+    padding-left: 10px;
+}

@@ -9,6 +9,8 @@ import Trailer from '../components/tailer/Trailer';
 import Reviews from '../components/reviews/Reviews';
 import NotFound from '../components/notFound/NotFound';
 import API from '../api/Api';
+import Login from '../components/login/Login';
+import Register from '../components/register/Register';
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
           <Route path="/" element ={<Home movies={movies}/>}></Route>
           <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}/>
           <Route path="/Reviews/:movieId" element={<Reviews getMovieData={getMovieData} movie={movie} reviews={reviews} setReviews={setReviews}/>}></Route>
+          <Route path="/signin" element={<Login/>}></Route>
+          <Route path="/register" element={<Register/>}></Route>
           <Route path="*" element={<NotFound/>}></Route>
         </Route>
       </Routes>
