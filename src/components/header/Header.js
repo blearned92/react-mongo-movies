@@ -4,10 +4,11 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "../../redux/UserSlice";
 import "./header.css";
+import { Form } from "react-bootstrap";
 
 const Header = () => {
 
@@ -42,11 +43,12 @@ const Header = () => {
     }
 
     return(
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
+        <Container fluid>
             <Navbar.Brand onClick={handleNavigateHome} className="navbar-title" style={{"color":'gold'}}>
                 <FontAwesomeIcon icon = {faVideoSlash}/>
                 Mongo Movies
+                
             </Navbar.Brand>
             <div className="navbar-toggle-container">
                 {user.username && <div className="username on-toggle">{user.username}</div>}

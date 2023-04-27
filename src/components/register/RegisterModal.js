@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 
 
 const RegisterModal = (props) => {
+
     const {firstname, lastname, username, password, confirmPassword} = props.form;
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSubmit = async () => {
         const response = await API.register(props.form, dispatch);
+        //maybe set this to only happen if successfully http response
         navigate("/");
     }
 
@@ -66,7 +68,6 @@ const RegisterModal = (props) => {
                 onClick={handleExit}>
                 Back
             </Button>
-            {/* <p>{confirmPassword}</p> */}
         </div>
     )
 }

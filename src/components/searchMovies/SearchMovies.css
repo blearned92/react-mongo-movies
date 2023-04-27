@@ -1,0 +1,33 @@
+.search-movies-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 0 30px;
+}
+
+.search-movies-table {
+    max-width: 1000px !important;
+    margin-top: 50px;
+    color: white;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.search-movies-table > tbody > tr {
+    border: 2px solid white;
+    background-color: #0e1111;
+    border: 1px solid gold;
+}
+
+.search-movies-table > tbody > tr:hover {
+    border: 2px solid white;
+    background-color: #0e1115;
+    cursor: pointer;
+}
+
+.search-movies-table-image {
+    align-items: center;
+}
+
+.search-movies-table-image > img {
+    width: 130px;
+}

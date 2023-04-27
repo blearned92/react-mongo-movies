@@ -8,15 +8,6 @@ import RegisterModal from './RegisterModal';
 
 const Register = () => {
 
-    // const firstName = useRef("");
-    // const lastName = useRef("");
-    // const username = useRef(""); 
-    // const password = useRef("");
-    // const exactPassword = useRef("");
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // const [passwordMatchError, setPassMatchError] = useState("Please enter a valid password");
-
     const [form, setForm] = useState({
         firstname:"",
         lastname:"",
@@ -28,12 +19,10 @@ const Register = () => {
     const [registerModal, setRegisterModal] = useState(false);
 
     const setField = async (field, value) => {
-
         setForm({
             ...form,
             [field]:value
         })
-
         if(!!errors[field]){
             setErrors({
                 ...errors,
@@ -54,20 +43,18 @@ const Register = () => {
             newErrors.lastname = "Please enter a last name"
         else if(lastname.length > 40) 
             newErrors.lastname = "Last name cannot exceed 40 characters"
-            //verify that username is not already take
         if(!username)
             newErrors.username = "Please enter a username"
         else if(username.length < 8 || username.length > 20) 
             newErrors.username = "Username must be between 8 & 20 characters long"
         else if(await API.checkUsernameTaken(username))
             newErrors.username = "Username is already taken"
-       // make sure password is in a certain format
         if(!password)
             newErrors.password = "Please enter a password"
         else if(password.length < 8 || password.length > 30) 
             newErrors.password = "Password must be between 8 & 30 characters long"
         else if (!CheckPassword(password)){
-            newErrors.password = "Password must contain one lowercase, one uppercase, and one special character"
+            newErrors.password = "Password must contain one lowercase, one uppercase, and one special character (#?!@$%^&*-)"
         }
         if(!confirmPassword)
             newErrors.confirmPassword = "Please confirm your password"
@@ -78,14 +65,13 @@ const Register = () => {
     }
 
     const CheckPassword = (inputtxt) => { 
-        const check = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/;
+        const check = /^(?=.*[#?!@$%^&*-])(?=.*[a-z])(?=.*[A-Z])/;
         if(inputtxt.match(check)) { 
             return true;
         } else { 
             return false;
         }
     }
-
 
     const handleSubmit = async e => {
         e.preventDefault();

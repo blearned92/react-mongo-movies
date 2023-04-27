@@ -56,14 +56,14 @@ const API = {
               username: username,
               password: form.password
             })
-            const token = response.data.token;
-            const user = jwtDecode(token);
-            console.log(user);
+            // const token = response.data.token;
+            // const user = jwtDecode(token);
             dispatch(setUser({
-              // firstname: user.firstname,
-              // lastname: user.lastname,
-              username: user.sub
-            }))
+              firstname: response.data.firstname,
+              lastname: response.data.lastname,
+              username: response.data.username,
+              role: response.data.role
+            }));
         } catch (err) {
           console.log(err)
         }
@@ -79,7 +79,7 @@ const API = {
         try {
           const response = await api.post("/api/v1/auth/authenticate", {username: username, password, password})
           const token = response.data.token;
-          const user = jwtDecode(token);
+          // const user = jwtDecode(token);
           dispatch(setUser({
             firstname: response.data.firstname,
             lastname: response.data.lastname,
