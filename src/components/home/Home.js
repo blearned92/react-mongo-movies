@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../hero/Hero";
+import SearchMovies from "../searchMovies/SearchMovies";
+import { useDispatch } from "react-redux";
+import { setSearchMovies } from "../../redux/MovieSlice";
 
-const Home = ({movies}) => {
+const Home = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        const setSearchMoviesNull = () => {
+            dispatch(setSearchMovies({searchMovies: []}))
+        }
+        setSearchMoviesNull();
+    },[])
+
     return (
         <div>
-            <Hero movies={movies}/>
+            <Hero/>
+            <SearchMovies/>
         </div>
     )
 }

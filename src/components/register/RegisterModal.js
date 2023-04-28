@@ -1,5 +1,5 @@
 import "./RegisterModal.css";
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import API from "../../api/Api";
 import { useNavigate } from "react-router-dom";

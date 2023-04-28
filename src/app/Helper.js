@@ -11,3 +11,5 @@ export const properCase = (string) => {
     const remainder = string.slice(1).toLowerCase();
     return firstLetter + remainder;
 }
+
+export const imagePath = "https://image.tmdb.org/t/p/original";

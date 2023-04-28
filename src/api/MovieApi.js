@@ -1,19 +1,35 @@
 import API from "./MovieDBConfig";
 
 const MovieAPI = {
+    //these need to be in try catch
     async fetchMovies() {
-        const response = await API.get("/discover/movie?append_to_response=videos")
-        return response.data;
+        try {
+            const response = await API.get("/discover/movie?append_to_response=videos")
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return ["Something went wrong"]
+        }
     },
 
     async fetchMovie(id){
-        const response = await API.get(`/movie/${id}?append_to_response=videos`)
-        return response.data.videos.results;
+        try {
+            const response = await API.get(`/movie/${id}?append_to_response=videos`)
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return {id: "Something went wrong"}
+        }
     },
 
     async fetchMoviesByTerm(term){
-        const response = await API.get(`/search/movie?query=${term}`);
-        return response.data;
+        try {
+            const response = await API.get(`/search/movie?query=${term}`);
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return ["Something went wrong"]
+        }
     }
 
 }

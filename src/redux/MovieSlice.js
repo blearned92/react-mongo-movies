@@ -11,8 +11,6 @@ const MovieSlice = createSlice({
     reducers: {
         setFeaturedMovies:(state, action)=>{
             const {featuredMovies} = action.payload;
-            console.log("Set featured")
-            console.log(featuredMovies)
             state.featuredMovies = featuredMovies;
         },
         setCurrentMovie:(state, action) => {

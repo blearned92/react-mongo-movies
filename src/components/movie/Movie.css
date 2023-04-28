@@ -1,0 +1,18 @@
+.movie-container {
+    width: 100vw;
+}
+
+.movie-banner {
+    height: 550px;
+    background-color: black;
+}
+
+.movie-title-container {
+    padding: 20px 40px;
+    -webkit-text-stroke-color: black;
+}
+
+.movie-title-container > h1 {
+    font-size: 70px;
+    font-weight: 400;
+}

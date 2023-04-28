@@ -1,18 +1,33 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
 import API from '../../api/Api';
+import MovieAPI from '../../api/MovieApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentMovie, setCurrentMovie } from '../../redux/MovieSlice';
+import { imagePath } from '../../app/Helper';
 
-const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
+const Reviews = () => {
 
-    const revText = useRef();
+
+
     let params = useParams();
+    const dispatch = useDispatch();
+    const revText = useRef();
     const movieId = params.movieId;
+    const [movie, setMovie] = useState();
 
     useEffect(()=>{
-        getMovieData(movieId);
+        const fetchCurrentMovie = async () => {
+            const response = await MovieAPI.fetchMovie(movieId);
+            console.log("Response")
+            console.log(response);
+            setMovie(response);
+            // dispatch(setCurrentMovie({currentMovie: response.data}))
+        }
+        fetchCurrentMovie();
     },[])
 
     const addReview = async () => {
@@ -29,9 +44,6 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
             </Row>
             <Row className='mt-2'>
                 <Col>
-                    <img src={movie?.poster} alt=""/>
-                </Col>
-                <Col>
                     {
                         <>
                             <Row>
@@ -46,7 +58,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                             </Row>
                         </>
                     }
-                    {
+                    {/* {
                         reviews?.map((review, index)=>{
                             return(
                                 <div key={review.id.timestamp + index}>
@@ -61,7 +73,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                                 </div>
                             )
                         })
-                    }
+                    } */}
                 </Col>
             </Row>
         </Container>

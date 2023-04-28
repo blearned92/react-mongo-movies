@@ -1,4 +1,4 @@
-import { Button, Container, Form, Navbar } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import "./Search.css";
 import { useRef } from "react";
 import MovieAPI from "../../api/MovieApi";
@@ -14,7 +14,11 @@ const Search = () => {
         if(term.current.value){
             const response = await MovieAPI.fetchMoviesByTerm(term.current.value)
             console.log(response.results)
-            dispatch(setSearchMovies({searchMovies: response.results}))
+            if(response.results.length === 0){
+                dispatch(setSearchMovies({searchMovies: ["No results found for search term: ", term.current.value]}))
+            } else {
+                dispatch(setSearchMovies({searchMovies: response.results}))
+            }
         }
 
     }

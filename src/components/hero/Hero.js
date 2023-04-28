@@ -9,16 +9,19 @@ import { Button } from "react-bootstrap";
 import Search from "../search/Search";
 import { useSelector } from "react-redux";
 import { selectFeaturedMovies } from "../../redux/MovieSlice";
-import SearchMovies from "../searchMovies/SearchMovies";
+import { imagePath } from "../../app/Helper";
 
-const Hero = ({movies}) => {
+const Hero = () => {
 
-    const imagePath = "https://image.tmdb.org/t/p/original"
     const navigate = useNavigate();
     const featuredMovies = useSelector(selectFeaturedMovies);
 
-    function reviews(movieId) {
+    const handleReviewClick = (movieId) => {
         navigate(`/Reviews/${movieId}`)
+    }
+
+    const handleMovieClick = (movie) => {
+        navigate(`/movie/${movie.id}`)
     }
 
 
@@ -38,7 +41,7 @@ const Hero = ({movies}) => {
                                         </div>                                        
                                         <div className="movie-detail">
                                             <div className="movie-poster">
-                                                <img src={`${imagePath}${movie.poster_path}`} alt=""/>
+                                                <img src={`${imagePath}${movie.poster_path}`} onClick={()=>handleMovieClick(movie)} alt=""/>
                                             </div>
                                             <div className="movie-buttons-container">
                                                 <Link to={`/Trailer/${movie.id}`}>
@@ -49,7 +52,7 @@ const Hero = ({movies}) => {
                                                     </div>
                                                 </Link>
                                                 <div className="movie-review-button-container">
-                                                    <Button variant="info" onClick={()=>reviews()}>Reviews</Button>
+                                                    <Button variant="info" onClick={()=>handleReviewClick(movie.id)}>Reviews</Button>
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +63,6 @@ const Hero = ({movies}) => {
                     }) : <p>Loading Movies...</p>    
                 }
             </Carousel>
-            <SearchMovies/>
         </div>
     )
 
