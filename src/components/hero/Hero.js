@@ -4,7 +4,7 @@ import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Search from "../search/Search";
 import { useSelector } from "react-redux";
@@ -17,13 +17,12 @@ const Hero = () => {
     const featuredMovies = useSelector(selectFeaturedMovies);
 
     const handleReviewClick = (movieId) => {
-        navigate(`/Reviews/${movieId}`)
+        navigate(`/movie/${movieId}/#reviews`)
     }
 
     const handleMovieClick = (movie) => {
         navigate(`/movie/${movie.id}`)
     }
-
 
     return(
         <div className="movie-carousel-container">
@@ -44,13 +43,13 @@ const Hero = () => {
                                                 <img src={`${imagePath}${movie.poster_path}`} onClick={()=>handleMovieClick(movie)} alt=""/>
                                             </div>
                                             <div className="movie-buttons-container">
-                                                <Link to={`/Trailer/${movie.id}`}>
+                                                {/* <Link to={`/Trailer/${movie.id}`}> */}
                                                     <div className="play-button-icon-container">
                                                         <FontAwesomeIcon className="play-button-icon" 
                                                             icon = {faCirclePlay}
                                                         />
                                                     </div>
-                                                </Link>
+                                                {/* </Link> */}
                                                 <div className="movie-review-button-container">
                                                     <Button variant="info" onClick={()=>handleReviewClick(movie.id)}>Reviews</Button>
                                                 </div>

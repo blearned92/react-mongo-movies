@@ -12,7 +12,7 @@ import MovieAPI from "../api/MovieApi"
 import Login from '../components/login/Login';
 import Register from '../components/register/Register';
 import { useDispatch } from 'react-redux';
-import { setFeaturedMovies } from '../redux/MovieSlice';
+import { setFeaturedMovies, setSearchMovies } from '../redux/MovieSlice';
 
 function App() {
 
@@ -23,9 +23,9 @@ function App() {
     const fetchMovies = async () => {
       const response = await MovieAPI.fetchMovies();
       dispatch(setFeaturedMovies({featuredMovies: response.results}))
+      dispatch(setSearchMovies({searchMovies:response.results}))
     }
     fetchMovies();
-
   },[])
 
   return (
@@ -42,6 +42,7 @@ function App() {
           <Route path="*" element={<NotFound/>}></Route>
         </Route>
       </Routes>
+      
     </div>
   );
 }

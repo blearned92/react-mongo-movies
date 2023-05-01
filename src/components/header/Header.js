@@ -46,7 +46,7 @@ const Header = () => {
         <Container fluid>
             <Navbar.Brand onClick={handleNavigateHome} className="navbar-title" style={{"color":'gold'}}>
                 <FontAwesomeIcon icon = {faVideoSlash}/>
-                Mongo Movies
+                Mango Movies
                 
             </Navbar.Brand>
             <div className="navbar-toggle-container">

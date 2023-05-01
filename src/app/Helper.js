@@ -13,3 +13,20 @@ export const properCase = (string) => {
 }
 
 export const imagePath = "https://image.tmdb.org/t/p/original";
+
+export const roundDate = t => {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const date = new Date(t * 1000);
+    const month = monthNames[date.getMonth()]
+    const day = date.getDate()
+    const year = 20 + date.getYear().toString().substring(1);
+    return month + " " + day + ", " + year;
+};
+
+export const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });

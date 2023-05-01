@@ -6,31 +6,22 @@ import { properCase } from "../app/Helper";
 
 const API = {
     //Movies
-    async fetchAllMovies() {
-        try {
-            const response = await api.get("/api/v1/movies");
-            return response.data;
-        } catch (err) {
-           console.log(err);
-           return [];
-        }
-      },
 
-      async fetchMovieData(movieId) {
+    //reviews
+      async fetchMovieReviews(movieId) {
         try {
           const response = await api.get(`/api/v1/movies/${movieId}`);
-          return response.data;
+          return response.data.reviews;
         } catch (err) {
           console.log(err);
-          return {};
+          return [];
         }
       },
 
-
-      //reviews
-      async postReview(review, movieId) {
+      async postReview(review, movieId, username) {
           try {
-            const response = await api.post("/api/v1/reviews",{reviewBody:review, imdbId:movieId})
+            console.log(review, movieId, username)
+            const response = await api.post("/api/v1/reviews",{body:review, imdbId:movieId, originalPoster: username})
             return response.data;
         } catch (err) {
             console.log(err);
@@ -67,12 +58,6 @@ const API = {
         } catch (err) {
           console.log(err)
         }
-
-        //lowercase the username
-        //call to api and get response
-        //set user into redux state
-        //return true if successful
-
       },
 
       async authenticate(username, password, dispatch){

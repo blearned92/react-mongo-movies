@@ -1,0 +1,41 @@
+.reviews-title {
+    color: gold;
+}
+
+.review-container {
+    margin-bottom: 100px;
+}
+
+.review-login-requirement-container {
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    padding-bottom: 20px;
+}
+
+.login-nav-link {
+    color: gold;
+}
+
+.login-nav-link:hover {
+    color: gold;
+}
+
+.review-heading {
+    display: flex;
+    justify-content: right;
+    padding: 5px;
+}
+
+.review-heading > b {
+    padding: 0 4px;
+    font-weight: 100;
+    color: gold;
+}
+
+.review-body {
+    text-align: justify;
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid gray;
+}

@@ -22,6 +22,26 @@ const MovieAPI = {
         }
     },
 
+    async fetchMovieCredits(id){
+        try {
+            const response = await API.get(`/movie/${id}/credits`)
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return {}
+        }
+    },
+
+    async fetchMovieImages(id) {
+        try {
+            const response = await API.get(`/movie/${id}/images`)
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return []
+        }
+    },
+
     async fetchMoviesByTerm(term){
         try {
             const response = await API.get(`/search/movie?query=${term}`);

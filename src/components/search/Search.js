@@ -4,20 +4,24 @@ import { useRef } from "react";
 import MovieAPI from "../../api/MovieApi";
 import { useDispatch } from "react-redux";
 import { setSearchMovies } from "../../redux/MovieSlice";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
 
     const term = useRef("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         if(term.current.value){
             const response = await MovieAPI.fetchMoviesByTerm(term.current.value)
-            console.log(response.results)
             if(response.results.length === 0){
                 dispatch(setSearchMovies({searchMovies: ["No results found for search term: ", term.current.value]}))
             } else {
                 dispatch(setSearchMovies({searchMovies: response.results}))
+            }
+            if(window.localStorage.pathname !== "/"){
+                navigate("/");
             }
         }
 
