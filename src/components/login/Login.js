@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import "./Login.css";
+import { setToken, setUser } from '../../redux/UserSlice';
 
 
 const Login = () => {
@@ -17,6 +18,18 @@ const Login = () => {
     const handleSubmit = async () => {
         const response = await API.authenticate(username.current.value, password.current.value, dispatch);        
         if(response){
+            localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('refresh_token', response.data.refresh_token);
+            dispatch(setUser({
+                firstname: response.data.firstname,
+                lastname: response.data.lastname,
+                username: response.data.username,
+                role: response.data.role,
+                accesstoken: response.data.access_token,
+                refreshtoken: response.data.refresh_token
+            }));
+            console.log("Logging in as " + response.data.username)
+
             navigate("/")
         } else {
             setLoginError("Invalid Credentials")

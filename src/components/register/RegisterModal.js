@@ -5,6 +5,7 @@ import API from "../../api/Api";
 import { useNavigate } from "react-router-dom";
 import { hiddenPw, properCase } from "../../app/Helper";
 import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/UserSlice";
 
 
 const RegisterModal = (props) => {
@@ -14,9 +15,21 @@ const RegisterModal = (props) => {
     const dispatch = useDispatch();
 
     const handleSubmit = async () => {
-        const response = await API.register(props.form, dispatch);
+        const response = await API.register(props.form);
         //maybe set this to only happen if successfully http response
-        navigate("/");
+        if(response){
+            localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('refresh_token', response.data.refresh_token);            
+            dispatch(setUser({
+                firstname: response.data.firstname,
+                lastname: response.data.lastname,
+                username: response.data.username,
+                role: response.data.role,
+                accesstoken: response.data.access_token,
+                refreshtoken: response.data.refresh_token
+            }));
+            navigate("/");
+        }
     }
 
     const handleExit = () => {

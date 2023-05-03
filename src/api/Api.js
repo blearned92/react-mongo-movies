@@ -1,12 +1,8 @@
 import api from "./axiosConfig";
 import jwtDecode from "jwt-decode";
-import { setUser } from "../redux/UserSlice";
-import { setLoginError } from "../redux/ErrorSlice";
 import { properCase } from "../app/Helper";
 
 const API = {
-    //Movies
-
     //reviews
       async fetchMovieReviews(movieId) {
         try {
@@ -18,26 +14,31 @@ const API = {
         }
       },
 
-      async postReview(review, movieId, username) {
+      async postReview(review, movieId, username, token) {
           try {
-            console.log(review, movieId, username)
-            const response = await api.post("/api/v1/reviews",{body:review, imdbId:movieId, originalPoster: username})
-            return response.data;
+            const config = {
+              headers: { Authorization: `Bearer ${token}` },
+            };
+            
+            const bodyParameters = {
+              body:review, imdbId:movieId, originalPoster: username,
+            };
+            const response = await api.post(
+              "/api/v1/reviews",
+              bodyParameters,
+              config
+            )
+            return response;
         } catch (err) {
             console.log(err);
-            return {};
         }
       },
     
       //register
-      async register(form, dispatch){
+      async register(form){
         const firstname = properCase(form.firstname);
         const lastname = properCase(form.lastname);
         const username = form.username.toLowerCase();
-        console.log(firstname)
-        console.log(lastname)
-        console.log(username)
-        console.log(form.password)
         try {
           const response = await api.post(
             "/api/v1/auth/register",
@@ -47,39 +48,56 @@ const API = {
               username: username,
               password: form.password
             })
-            // const token = response.data.token;
-            // const user = jwtDecode(token);
-            dispatch(setUser({
-              firstname: response.data.firstname,
-              lastname: response.data.lastname,
-              username: response.data.username,
-              role: response.data.role
-            }));
-        } catch (err) {
+            return response;
+          } catch (err) {
           console.log(err)
         }
       },
 
-      async authenticate(username, password, dispatch){
+      async authenticate(username, password){
         try {
-          const response = await api.post("/api/v1/auth/authenticate", {username: username, password, password})
-          const token = response.data.token;
-          // const user = jwtDecode(token);
-          dispatch(setUser({
-            firstname: response.data.firstname,
-            lastname: response.data.lastname,
-            username: response.data.username,
-            role: response.data.role
-          }));
-          // dispatch(setUser({username: user.sub}));
-          dispatch(setLoginError({error:null}))
-          // localStorage.setItem('token', token);
-          return true;
-        } catch (err ) {
+          username = username.toLowerCase();
+          const response = await api.post(
+            "/api/v1/auth/authenticate", 
+            {username: username, password, password}
+          )
+          return response;
+        } catch (err) {
           console.log("err");
-          dispatch(setLoginError({error:"Invalid credentials"}))
-          return false;
-          //     dispatch(actions.loginUserFail());
+        }
+      },
+
+      async refreshToken(token){
+
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+
+        try {
+          const response = await api.post(
+            "/api/v1/auth/refresh-token", 
+            {},
+            config
+          )
+          return response;
+        } catch (err) {
+          console.log("err");
+        }
+      },
+
+      async logout(token){
+        try{
+          const config = {
+            headers: { Authorization: `Bearer ${token}` },
+          };
+          
+          const response = await api.post(
+            "/api/v1/auth/logout",
+            {},
+            config
+          )
+        } catch (err) {
+          console.log(err);
         }
       },
 

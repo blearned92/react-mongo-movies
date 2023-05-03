@@ -43,6 +43,7 @@
 
 .movie-poster{
     height: 300px;
+    width: 190px;
     border: 1px solid gold;
     border-radius: 10px;
     overflow: hidden;

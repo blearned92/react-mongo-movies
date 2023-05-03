@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Hero.css";
 import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
@@ -10,11 +10,14 @@ import Search from "../search/Search";
 import { useSelector } from "react-redux";
 import { selectFeaturedMovies } from "../../redux/MovieSlice";
 import { imagePath } from "../../app/Helper";
+import TrailerModal from "../tailer/TrailerModal";
 
 const Hero = () => {
 
     const navigate = useNavigate();
     const featuredMovies = useSelector(selectFeaturedMovies);
+    const [trailerModal, setTrailerModal] = useState(false);
+    const [currentMovie, setCurrentMovie] = useState({});
 
     const handleReviewClick = (movieId) => {
         navigate(`/movie/${movieId}/#reviews`)
@@ -22,6 +25,11 @@ const Hero = () => {
 
     const handleMovieClick = (movie) => {
         navigate(`/movie/${movie.id}`)
+    }
+
+    const handleModalClick = (movie) => {
+        setCurrentMovie(movie);
+        setTrailerModal(true);
     }
 
     return(
@@ -43,13 +51,11 @@ const Hero = () => {
                                                 <img src={`${imagePath}${movie.poster_path}`} onClick={()=>handleMovieClick(movie)} alt=""/>
                                             </div>
                                             <div className="movie-buttons-container">
-                                                {/* <Link to={`/Trailer/${movie.id}`}> */}
-                                                    <div className="play-button-icon-container">
+                                                    <div className="play-button-icon-container" onClick={()=>handleModalClick(movie)}>
                                                         <FontAwesomeIcon className="play-button-icon" 
                                                             icon = {faCirclePlay}
                                                         />
                                                     </div>
-                                                {/* </Link> */}
                                                 <div className="movie-review-button-container">
                                                     <Button variant="info" onClick={()=>handleReviewClick(movie.id)}>Reviews</Button>
                                                 </div>
@@ -62,6 +68,7 @@ const Hero = () => {
                     }) : <p>Loading Movies...</p>    
                 }
             </Carousel>
+            {trailerModal && <TrailerModal currentMovie={currentMovie} setTrailerModal={setTrailerModal}/>}
         </div>
     )
 

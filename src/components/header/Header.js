@@ -6,8 +6,9 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUser } from "../../redux/UserSlice";
+import { selectToken, selectUser, setUser } from "../../redux/UserSlice";
 import "./header.css";
+import API from "../../api/Api";
 
 const Header = () => {
 
@@ -32,12 +33,18 @@ const Header = () => {
     }
 
     const handleLogOut = () => {
+        API.logout(user.accesstoken);
         dispatch(setUser({
             firstname: null,
             lastname: null,
             username:null,
-            role: null
-        }))
+            role: null,
+            accesstoken: null,
+            refreshtoken: null
+          }))
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
+        console.log("Logging out user " + user.username + " and removing token")
         navigate("/signin")
     }
 

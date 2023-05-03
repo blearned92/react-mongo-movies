@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
 import API from '../../api/Api';
 import { useSelector } from 'react-redux';
-import { selectUsername } from '../../redux/UserSlice';
+import { selectUser } from '../../redux/UserSlice';
 import "./Review.css";
 import { roundDate } from '../../app/Helper';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ const Reviews = ({imdb_id}) => {
 
     const reviewText = useRef();
     const [reviews, setReviews] = useState([]);
-    const username = useSelector(selectUsername);
+    const user = useSelector(selectUser);
 
     useEffect(()=>{
         const fetchReviews = async () => {
@@ -23,11 +23,19 @@ const Reviews = ({imdb_id}) => {
     },[])
 
     const addReview = async () => {
-        const response = await API.postReview(reviewText.current.value, imdb_id, "blearned92");
-        console.log(response);
-        const updatedReviews = [response, ...reviews];
-        setReviews(updatedReviews);
-        reviewText.current.value="";
+        const response = await API.postReview(
+            reviewText.current.value, 
+            imdb_id, 
+            user.username, 
+            user.accesstoken
+        );
+        if(Object.keys(response.data).length === 0){
+            reviewText.current.value="";
+        } else {
+            const updatedReviews = [response.data, ...reviews];
+            setReviews(updatedReviews);
+            reviewText.current.value="";
+        }
     }
 
     return(
@@ -39,7 +47,7 @@ const Reviews = ({imdb_id}) => {
             </Row>
             <Row className='mt-2' id='reviews'>
                 <Col>
-                    { username ?
+                    { user.username ?
                         <>
                             <Row>
                                 <Col>

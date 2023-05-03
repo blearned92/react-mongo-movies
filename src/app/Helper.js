@@ -1,3 +1,5 @@
+import jwtDecode from "jwt-decode";
+
 export const hiddenPw = (password) => {
     let hiddenPw = "";
     for(let i = 0; i<password.length; i++){
@@ -30,3 +32,14 @@ export const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
+
+export const checkExpirationOfToken = (token) => {
+    const {exp, iat, sub} = jwtDecode(token);
+    if(exp > iat){
+        console.log("Not Expired")
+        return false;
+    } else {
+        console.log("Expired")
+        return true;
+    }
+}
