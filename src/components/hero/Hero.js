@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Hero.css";
 import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { selectFeaturedMovies } from "../../redux/MovieSlice";
 import { imagePath } from "../../app/Helper";
 import TrailerModal from "../tailer/TrailerModal";
+import Loading from "../loading/Loading";
 
 const Hero = () => {
 
@@ -18,6 +19,7 @@ const Hero = () => {
     const featuredMovies = useSelector(selectFeaturedMovies);
     const [trailerModal, setTrailerModal] = useState(false);
     const [currentMovie, setCurrentMovie] = useState({});
+    const [loading, setLoading] = useState(true);
 
     const handleReviewClick = (movieId) => {
         navigate(`/movie/${movieId}/#reviews`)
@@ -32,8 +34,15 @@ const Hero = () => {
         setTrailerModal(true);
     }
 
+    useEffect(()=>{
+        if(featuredMovies.length > 0){
+            setLoading(false);
+        }
+    },[featuredMovies])
+
     return(
         <div className="movie-carousel-container">
+            {!loading ? 
             <Carousel>
                 {
                     featuredMovies ? 
@@ -68,6 +77,8 @@ const Hero = () => {
                     }) : <p>Loading Movies...</p>    
                 }
             </Carousel>
+            : <Loading/>
+            } 
             {trailerModal && <TrailerModal currentMovie={currentMovie} setTrailerModal={setTrailerModal}/>}
         </div>
     )

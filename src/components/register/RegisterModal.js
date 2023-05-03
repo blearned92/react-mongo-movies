@@ -47,7 +47,7 @@ const RegisterModal = (props) => {
         <div className="register-modal-wrapper">
             <h1>Registration Review</h1>
             <p>Does this information look correct?</p>
-            <Table className="register-modal-table" bordered>
+            <Table className="register-modal-table table-striped table-dark table-bordered">
                 <tbody>
                     <tr>
                         <td>First Name</td>

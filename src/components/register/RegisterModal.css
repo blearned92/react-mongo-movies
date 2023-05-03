@@ -17,7 +17,7 @@
 
 .register-modal-table {
     max-width: 300px;
-    border-color: gold;
+    border-color: gold !important;
 }
 
 .register-modal-table tbody>tr>td {

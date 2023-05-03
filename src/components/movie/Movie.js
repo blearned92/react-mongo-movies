@@ -7,6 +7,7 @@ import Reviews from "../reviews/Reviews";
 import MovieDetails from "./MovieDetails";
 import MovieTrailers from "./MovieTrailers";
 import Search from "../search/Search";
+import Loading from "../loading/Loading";
 
 
 const Movie = () => {
@@ -51,7 +52,7 @@ const Movie = () => {
                 <Reviews imdb_id={currentMovie.imdb_id}/>
                 {checkPathForReview()}
                 </div>
-         : <p>Loading</p>
+         : <Loading/>
     )
 }
 

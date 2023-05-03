@@ -12,7 +12,8 @@ const Search = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if(term.current.value){
             const response = await MovieAPI.fetchMoviesByTerm(term.current.value)
             if(response.results.length === 0){
@@ -29,7 +30,7 @@ const Search = () => {
 
     return (
             <Container className="search-container">
-                <Form className="d-flex">
+                <Form className="d-flex" onSubmit={handleSubmit}>
                     <Form.Control
                     ref={term}
                     type="search"
