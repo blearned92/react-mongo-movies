@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHref, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MovieApi from "../../api/MovieApi"; 
 import "./Movie.css";
 import {imagePath} from "../../app/Helper";
@@ -15,7 +15,6 @@ const Movie = () => {
     const params = useParams();
     const movieId = params.movieId;
     const [currentMovie, setCurrentMovie] = useState({});
-    const navigate = useNavigate();
 
     const checkPathForReview = () => {
         const path = window.location.href;
@@ -41,7 +40,7 @@ const Movie = () => {
         currentMovie.id ? 
             currentMovie.id === "Something went wrong" ? 
             <p>Something went wrong</p> :
-                <div className="movie-container">
+                <div className="movie-container" data-testid="movie">
                 <div className="movie-banner">
                     <div className="movie-card" style={{backgroundImage: `url(${imagePath}${currentMovie.backdrop_path})`}}>
                         <Search/>

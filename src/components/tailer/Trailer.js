@@ -4,7 +4,7 @@ const Trailer = ({trailer}) => {
 
         const key = trailer.key;
         return(
-            <ReactPlayer  
+            <ReactPlayer data-testid="trailer-component"
                 controls={true} 
                 playing={false}
                 url={`https://www.youtube.com/watch?v=${key}`}

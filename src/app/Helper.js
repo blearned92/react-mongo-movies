@@ -1,5 +1,12 @@
 import jwtDecode from "jwt-decode";
 
+export const imagePath = "https://image.tmdb.org/t/p/original";
+
+export const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
 export const hiddenPw = (password) => {
     let hiddenPw = "";
     for(let i = 0; i<password.length; i++){
@@ -14,8 +21,6 @@ export const properCase = (string) => {
     return firstLetter + remainder;
 }
 
-export const imagePath = "https://image.tmdb.org/t/p/original";
-
 export const roundDate = t => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -28,18 +33,11 @@ export const roundDate = t => {
     return month + " " + day + ", " + year;
 };
 
-export const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-
 export const checkExpirationOfToken = (token) => {
-    const {exp, iat, sub} = jwtDecode(token);
+    const {exp, iat} = jwtDecode(token);
     if(exp > iat){
-        console.log("Not Expired")
         return false;
     } else {
-        console.log("Expired")
         return true;
     }
 }

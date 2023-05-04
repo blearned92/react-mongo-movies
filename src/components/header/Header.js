@@ -6,9 +6,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectToken, selectUser, setUser } from "../../redux/UserSlice";
+import { selectUser, setUser } from "../../redux/UserSlice";
 import "./header.css";
 import API from "../../api/Api";
+import Mango from "../../images/mango.png";
 
 const Header = () => {
 
@@ -52,9 +53,8 @@ const Header = () => {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" >
         <Container fluid>
             <Navbar.Brand onClick={handleNavigateHome} className="navbar-title" style={{"color":'gold'}}>
-                <FontAwesomeIcon icon = {faVideoSlash}/>
+                <img src={Mango} className="navbar-icon"/>
                 Mango Movies
-                
             </Navbar.Brand>
             <div className="navbar-toggle-container">
                 {user.username && <div className="username on-toggle">{user.username}</div>}
