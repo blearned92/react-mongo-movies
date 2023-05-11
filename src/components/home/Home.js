@@ -5,7 +5,7 @@ import SearchMovies from "../searchMovies/SearchMovies";
 const Home = () => {
 
     return (
-        <div>
+        <div data-testid="home">
             <Hero/>
             <SearchMovies/>
         </div>

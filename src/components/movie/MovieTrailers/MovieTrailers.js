@@ -3,8 +3,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./MovieTrailers.css";
 import { useState } from "react";
-import {Settings} from "../../app/Settings";
-import Trailer from "../tailer/Trailer";
+import {Settings} from "../../../app/Settings";
+import Trailer from "../../tailer/Trailer";
 import { Container } from "react-bootstrap";
 
 const MovieTrailers = ({currentMovie}) => {
@@ -14,14 +14,14 @@ const MovieTrailers = ({currentMovie}) => {
     const trailers = currentMovie.videos.results;
     let renderTrailers = trailers.map((trailer, index)=>{
             return (
-                <div className="movie-trailer-container" key={index}>
+                <div className="movie-trailer-container" key={index} data-testid="trailer">
                     <Trailer trailer={trailer}/>
                 </div>
             )
         })
 
     return(
-        <Container>
+        <Container data-testid="trailers">
             <h2 className="trailers-title">Trailers</h2>
             <Slider ref={setSliderRef} {...Settings} className="slider">
             {renderTrailers}

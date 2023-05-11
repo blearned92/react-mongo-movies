@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import MovieApi from "../../api/MovieApi"; 
+import MovieApi from "../../../api/MovieApi"; 
 import "./Movie.css";
-import {imagePath} from "../../app/Helper";
-import Reviews from "../reviews/Reviews";
-import MovieDetails from "./MovieDetails";
-import MovieTrailers from "./MovieTrailers";
-import Search from "../search/Search";
-import Loading from "../loading/Loading";
+import {imagePath} from "../../../app/Helper";
+import Reviews from "../../reviews/Reviews";
+import MovieDetails from "../MovieDetails/MovieDetails";
+import MovieTrailers from "../MovieTrailers/MovieTrailers";
+import Search from "../../search/Search";
+import Loading from "../../loading/Loading";
 
 
 const Movie = () => {

@@ -1,9 +1,8 @@
 import { Table } from "react-bootstrap";
 import "./MovieDetails.css";
 import { useEffect, useState } from "react";
-import MovieAPI from "../../api/MovieApi";
-import { formatter } from "../../app/Helper";
-import { imagePath } from "../../app/Helper";
+import MovieAPI from "../../../api/MovieApi";
+import { formatter, imagePath } from "../../../app/Helper";
 
 const MovieDetails = ({currentMovie}) => {
 
@@ -21,7 +20,7 @@ const MovieDetails = ({currentMovie}) => {
     const columns = [
         ["Director:", director], 
         ["Screenplay:", screenplay], 
-        ["Producor:", producer], 
+        ["Producr:", producer], 
         ["Starring:", cast], 
         ["Production Companies:", companies],
         ["Release Dates:", currentMovie.release_date],
@@ -78,14 +77,24 @@ const MovieDetails = ({currentMovie}) => {
     useEffect(()=>{
         const fetchMovieCredits = async () => {
             const response = await MovieAPI.fetchMovieCredits(currentMovie.id);
-            sortCast(response.cast);
-            sortCrew(response.crew);
+            if(response.cast){
+                sortCast(response.cast);
+            }
+            if(response.crew){
+                sortCrew(response.crew);
+            }
         }
         const fetchMoviePosters = async () => {
             const response = await MovieAPI.fetchMovieImages(currentMovie.id);
-            setPosters(response.posters);
-            setBackdrops(response.backdrops);
-            setLogos(response.logos);
+            if(response.posters){
+                setPosters(response.posters);
+            }
+            if(response.backdrops){
+                setBackdrops(response.backdrops);
+            }
+            if(response.logos){
+                setLogos(response.logos);
+            }
         }
         sortWithSetter(currentMovie.production_companies, setCompanies);
         sortWithSetter(currentMovie.production_countries, setCountries);
@@ -95,7 +104,7 @@ const MovieDetails = ({currentMovie}) => {
     },[])
 
     return (
-        <div className="movie-details-container">
+        <div className="movie-details-container" data-testid="movie-details-container">
             <div className="movie-details-header">
                 <h1>{currentMovie.title}</h1>
             </div>

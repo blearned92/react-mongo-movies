@@ -4,7 +4,7 @@ import React from 'react';
 
 const Layout = () => { 
     return (
-        <main>
+        <main data-testid="layout">
             <Outlet/>
         </main>
     )

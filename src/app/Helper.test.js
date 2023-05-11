@@ -1,12 +1,12 @@
 import {render, screen, cleanup} from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { checkExpirationOfToken, hiddenPw, properCase, roundDate } from '../Helper';
+import { checkExpirationOfToken, hiddenPw, properCase, roundDate } from './Helper';
 
 afterEach(()=>{
     cleanup();
 })
 
-describe("Helper Methods",()=>{
+describe("Helper",()=>{
     it('should hide password with x characters',()=>{
         const passwordToFormat = "password";
         const result = hiddenPw(passwordToFormat);

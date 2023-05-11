@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import Header from '../components/header/Header';
 import Trailer from '../components/tailer/Trailer';
 import Reviews from '../components/reviews/Reviews';
-import Movie from "../components/movie/Movie";
+import Movie from "../components/movie/Movie/Movie";
 import NotFound from '../components/notFound/NotFound';
 import MovieAPI from "../api/MovieApi"
 import Login from '../components/login/Login';
